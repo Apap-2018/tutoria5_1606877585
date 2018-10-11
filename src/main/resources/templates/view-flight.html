@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Flight</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar('View Flight')"></nav>
+
+<div th:each="flight : ${flights}" >
+    <h1 th:text="'Flight id : '+${flight.id}" ></h1>
+    <h1 th:text="'Flight number : '+${flight.flightNumber}" ></h1>
+    <h1 th:text="'Origin '+ ${flight.origin}" ></h1>
+    <h1 th:text="'Destination '+ ${flight.destination}" ></h1>
+    <h1 th:text="'Time : '+ ${flight.time}" ></h1>
+    <form th:action="@{/flight/delete}"  method="POST">
+        <input type="hidden"  name="id" th:value="*{flight.id}" />
+        <button type="submit">Delete</button>
+    </form>
+
+    <form th:action="@{'/flight/update/'+ ${flight.pilot.licenseNumber}}" method="POST" >
+        <input type="hidden"  name="id" th:value="*{flight.id}" />
+        <button type="submit">Update</button>
+    </form>
+    <br><br>
+    <h2 th:text="'Pilot License Number : ' + ${flight.pilot.licenseNumber}"></h2>
+
+    <h2 th:text="'Name : '+ ${flight.pilot.name}"></h2>
+    <h2 th:text="'Fly Hours : '+ ${flight.pilot.flyHour}"></h2>
+
+
+    <br>
+
+
+</div>
+
+</body>
+</html>
